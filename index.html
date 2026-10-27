@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Libas – Sign in</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500&display=swap">
+    <style>
+        :root {
+            --img: url('background.jpg');
+            --ink: #2a251f;
+            --mute: #4f483f;
+            --line: rgba(42, 37, 31, .55);
+            --accent: #3f2f20;
+            --accent-ink: #f5f1e9;
+            --err: #8a2f23;
+            --glass: rgba(250, 245, 236, .20);
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        * {
+            box-sizing: inherit
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%
+        }
+
+        body {
+            font-family: Jost, system-ui, sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--ink);
+            background: #b3aca1
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: var(--img) 42% 60%/cover no-repeat
+        }
+
+        body {
+            position: relative;
+            height: 100vh;
+            height: 100svh;
+            overflow: hidden
+        }
+
+        .stage {
+            --W: max(100vw, calc(100svh*1.7014));
+            --cx: calc((100vw - var(--W))*0.42 + var(--W)*0.41);
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: safe center;
+            padding: 20px;
+            overflow-y: auto
+        }
+
+        @media (min-width:701px) {
+            .card {
+                position: relative;
+                left: calc(var(--cx) - 50vw)
+            }
+        }
+
+        .card {
+            width: 100%;
+            max-width: 380px;
+            padding: 32px 28px 28px;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, .35);
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 6px 24px rgba(60, 50, 40, .06)
+        }
+
+        .brand {
+            font-family: Italiana, serif;
+            font-size: 40px;
+            letter-spacing: .14em;
+            margin: 0 0 20px;
+            text-align: center
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .tab {
+            font: inherit;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--mute);
+            background: none;
+            border: 0;
+            padding: 10px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px
+        }
+
+        .tab[aria-selected="true"] {
+            color: var(--ink);
+            border-bottom-color: var(--ink)
+        }
+
+        .field {
+            margin-bottom: 18px
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 4px
+        }
+
+        .in {
+            position: relative
+        }
+
+        input[type=text],
+        input[type=email],
+        input[type=password] {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid var(--line);
+            padding: 8px 0;
+            border-radius: 0
+        }
+
+        input::placeholder {
+            color: #6b6358
+        }
+
+        input:focus {
+            outline: 0;
+            border-bottom: 2px solid var(--ink)
+        }
+
+        .toggle {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: 0;
+            color: var(--mute);
+            font: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input[type=checkbox]:focus-visible {
+            outline: 2px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 14px;
+            margin: 2px 0 22px
+        }
+
+        .row label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 0;
+            font-weight: 300
+        }
+
+        .row input {
+            accent-color: var(--accent)
+        }
+
+        a {
+            color: var(--ink)
+        }
+
+        .btn {
+            width: 100%;
+            font: inherit;
+            font-weight: 400;
+            letter-spacing: .04em;
+            background: var(--accent);
+            color: var(--accent-ink);
+            border: 0;
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            transition: opacity .2s
+        }
+
+        .btn:hover {
+            opacity: .9
+        }
+
+        .msg {
+            min-height: 22px;
+            font-size: 14px;
+            margin: 0 0 10px;
+            color: var(--err)
+        }
+
+        .msg.ok {
+            color: #2f4a2a
+        }
+
+        .hidden {
+            display: none
+        }
+
+        @media (max-width:480px) {
+            .card {
+                padding: 22px 20px 20px
+            }
+
+            .brand {
+                font-size: 34px;
+                margin-bottom: 14px
+            }
+
+            .tabs {
+                margin-bottom: 16px
+            }
+
+            .field {
+                margin-bottom: 12px
+            }
+
+            .row {
+                margin-bottom: 14px
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="stage">
+        <div class="card">
+            <p class="brand">LIBAS</p>
+            <div class="tabs" role="tablist">
+                <button class="tab" role="tab" id="t-in" aria-selected="true" aria-controls="p-in">Sign in</button>
+                <button class="tab" role="tab" id="t-up" aria-selected="false" aria-controls="p-up">Create
+                    account</button>
+            </div>
+
+            <form id="p-in" role="tabpanel" aria-labelledby="t-in" novalidate>
+                <div class="field"><label for="e1">Email</label><input id="e1" type="email" autocomplete="email"
+                        placeholder="you@example.com"></div>
+                <div class="field"><label for="p1">Password</label>
+                    <div class="in"><input id="p1" type="password" autocomplete="current-password"
+                            placeholder="Enter your password"><button type="button" class="toggle" data-for="p1"
+                            aria-label="Show password">Show</button></div>
+                </div>
+                <div class="row"><a href="#">Forgot password?</a></div>
+                <p class="msg" role="alert"></p>
+                <button class="btn" type="submit">Sign in</button>
+            </form>
+
+            <form id="p-up" class="hidden" role="tabpanel" aria-labelledby="t-up" novalidate>
+                <div class="field"><label for="n2">Full name</label><input id="n2" type="text" autocomplete="name">
+                </div>
+                <div class="field"><label for="e2">Email</label><input id="e2" type="email" autocomplete="email"
+                        placeholder="you@example.com"></div>
+                <div class="field"><label for="p2">Password</label>
+                    <div class="in"><input id="p2" type="password" autocomplete="new-password"
+                            placeholder="At least 6 characters"><button type="button" class="toggle" data-for="p2"
+                            aria-label="Show password">Show</button></div>
+                </div>
+
+                <p class="msg" role="alert"></p>
+                <button class="btn" type="submit">Create account</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        var tin = document.getElementById('t-in'), tup = document.getElementById('t-up'), fin = document.getElementById('p-in'), fup = document.getElementById('p-up');
+        function show(up) {tin.setAttribute('aria-selected', !up); tup.setAttribute('aria-selected', up); fin.classList.toggle('hidden', up); fup.classList.toggle('hidden', !up)}
+        tin.onclick = function () {show(false)}; tup.onclick = function () {show(true)};
+        document.querySelectorAll('.toggle').forEach(function (b) {b.onclick = function () {var i = document.getElementById(b.dataset.for), s = i.type === 'password'; i.type = s ? 'text' : 'password'; b.textContent = s ? 'Hide' : 'Show'; b.setAttribute('aria-label', s ? 'Hide password' : 'Show password')}});
+        var ok = function (v) {return /^\S+@\S+\.\S+$/.test(v.trim())};
+        function out(f, t, good) {var m = f.querySelector('.msg'); m.className = 'msg' + (good ? ' ok' : ''); m.textContent = t}
+        fin.onsubmit = function (e) {
+            e.preventDefault();
+            if (!ok(e1.value)) return out(fin, 'Enter a valid email address.');
+            if (p1.value.length < 6) return out(fin, 'Password must be at least 6 characters.');
+            out(fin, 'Signed in!', 1)
+        };
+        fup.onsubmit = function (e) {
+            e.preventDefault();
+            if (!n2.value.trim()) return out(fup, 'Enter your full name.');
+            if (!ok(e2.value)) return out(fup, 'Enter a valid email address.');
+            if (p2.value.length < 6) return out(fup, 'Password must be at least 6 characters.');
+
+            out(fup, 'Account created!', 1)
+        };
+    </script>
+</body>
+
+</html>
